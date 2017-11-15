@@ -1,8 +1,6 @@
-// Declaração
-var campo = $(".campo-digitacao");
 var tempoInicial = $("#tempo-digitacao").text();
+var campo = $(".campo-digitacao");
 
-// Similar a $(document).ready(function(){});
 $(function () {
     atualizaTamanhoFrase();
     inicializaContadores();
@@ -15,6 +13,7 @@ function atualizaTamanhoFrase() {
     var frase = $(".frase").text();
     var numPalavras = frase.split(" ").length;
     var tamanhoFrase = $("#tamanho-frase");
+
     tamanhoFrase.text(numPalavras);
 }
 
@@ -28,16 +27,6 @@ function inicializaContadores() {
         var qtdCaracteres = conteudo.length;
         $("#contador-caracteres").text(qtdCaracteres);
     });
-}
-
-function inserePlacar() {
-    var tabela = $(".placar").find("tbody");
-    console.log(tabela);
-}
-
-function finalizaJogo() {
-    
-    
 }
 
 function inicializaMarcadores() {
@@ -63,26 +52,27 @@ function inicializaCronometro() {
             tempoRestante--;
             $("#tempo-digitacao").text(tempoRestante);
             if (tempoRestante < 1) {
-                campo.attr("disabled", true);
                 clearInterval(cronometroID);
-                //campo.css("background-color","lightgray");
-                // altera para a classe declarada no css
-                // campo.addClass("campo-desativado"); 
-                campo.toggleClass("campo-desativado");
+                finalizaJogo();
             }
         }, 1000);
     });
 }
 
+function finalizaJogo() {
+    campo.attr("disabled", true);
+    campo.toggleClass("campo-desativado");
+    inserePlacar();
+}
+
 function reiniciaJogo() {
     campo.attr("disabled", false);
     campo.val("");
-    $("#contador-palavras").text("0");
-    $("#contador-caracteres").text("0");
+    $("#contador-palavras").text(0);
+    $("#contador-caracteres").text(0);
     $("#tempo-digitacao").text(tempoInicial);
+    inicializaCronometro();
     campo.toggleClass("campo-desativado");
     campo.removeClass("borda-vermelha");
     campo.removeClass("borda-verde");
-
-    inicializaCronometro();
 }
