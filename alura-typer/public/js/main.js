@@ -1,3 +1,5 @@
+$("#botao-placar").click(mostraPlacar);
+
 var tempoInicial = $("#tempo-digitacao").text();
 var campo = $(".campo-digitacao");
 
@@ -75,4 +77,9 @@ function reiniciaJogo() {
     campo.toggleClass("campo-desativado");
     campo.removeClass("borda-vermelha");
     campo.removeClass("borda-verde");
+}
+
+function mostraPlacar(){
+    // $(".placar").toggle();
+    $(".placar").stop().slideToggle(1000);
 }
